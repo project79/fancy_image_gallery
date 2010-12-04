@@ -8,22 +8,23 @@
  *
  * @author Sanja Andjelkovic <sanja@medio.com.hr>
  * @author Dejan Andjelkovic <dejan@medio.com.hr>
- * @version 0.8.3
+ * @version 0.8.4
  * @for Wolf version 0.6.0 and above
  * @license http://www.gnu.org/licenses/gpl.html GPL License
  * @copyright medio.com.hr, 2009-2010
  */
- 
+if (!defined('IN_CMS')) { exit(); }
+
 Plugin::setInfos(array(
     'id'          => 'fancy_image_gallery',
     'title'       => 'Fancy Image Gallery',
     'description' => __('Provides easy to use image gallery with fancybox effect.'),
-    'version'     => '0.8.3',
-	'license'     => 'GPL',
-	'author'      => 'Sanja Andjelkovic',	
+    'version'     => '0.8.4',
+    'license'     => 'GPL',
+    'author'      => 'Sanja Andjelkovic',
     'website'     => 'http://medio.com.hr/',
-	'update_url'  => 'http://www.project79.net/plugin-versions.xml',
-	'require_wolf_version' => '0.6.0'
+    'update_url'  => 'http://www.project79.net/plugin-versions.xml',
+    'require_wolf_version' => '0.6.0'
 ));
 
 Plugin::addController('fancy_image_gallery', 'Fancy Image Gallery');

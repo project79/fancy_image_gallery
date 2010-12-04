@@ -1,4 +1,5 @@
 <?php
+if (!defined('IN_CMS')) { exit(); }
 /**
  * Fancy Image Gallery for Wolf CMS- Create gallery and display images with few clicks
  * Gallery is free for non-profit usage. For commercial usage, please contact one of the authors.
@@ -7,7 +8,7 @@
  *
  * @author Sanja Andjelkovic <sanja@medio.com.hr>
  * @author Dejan Andjelkovic <dejan@medio.com.hr>
- * @version 0.8.0
+ * @version 0.8.4
  * @for Wolf version 0.6.0 and above
  * @license http://www.gnu.org/licenses/gpl.html GPL License
  * @copyright medio.com.hr, 2009
