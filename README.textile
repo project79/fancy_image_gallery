@@ -5,7 +5,7 @@ h3. What is it?
 Image Gallery for Wolf CMS with Jquery FancyBox plugin for effects.
 Current version is 0.8.3 (for Wolf 0.6.0 and 0.7.0)
 For Wolf 0.5.5 use version 0.7.3
-Website: http://project79.net/projects/fancy-image-gallery
+Website: <a href="http://project79.net/projects/fancy-image-gallery">Project 79</a>
 
 h3. What can it do?
 
@@ -55,6 +55,11 @@ Coder: Dejan Andjelkovic <dejan@medio.com.hr>
 Copyright 2009-2010, http://medio.com.hr
 
 h3. Changelog
+
+h4. Version 0.8.4 (December 2010)
+
+* Russian translation added (thanks to Konstantin Baev)
+* Some extra files removed
 
 h4. Version 0.8.3 (August 2010)
 
