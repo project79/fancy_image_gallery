@@ -1,5 +1,5 @@
 <?php
-
+if (!defined('IN_CMS')) { exit(); }
 /**
  * Fancy Image Gallery for Wolf CMS- Create gallery and display images with few clicks
  * Gallery is free for non-profit usage. For commercial usage, please contact one of the authors.
@@ -13,7 +13,7 @@
  * @license http://www.gnu.org/licenses/gpl.html GPL License
  * @copyright medio.com.hr, 2009-2010
  */
-if (!defined('IN_CMS')) { exit(); }
+
 class FancyImageGalleryController extends PluginController {
 
 	public static function _checkLog() {
@@ -44,7 +44,7 @@ class FancyImageGalleryController extends PluginController {
         $this->display('fancy_image_gallery/views/settings', Plugin::getAllSettings('fancy_image_gallery'));
     }
 
-public function create_thumb(){
+    public function create_thumb(){
 
             $path = $_POST['gallery_path'];
             
