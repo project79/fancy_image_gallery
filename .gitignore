@@ -1,0 +1,4 @@
+#hide project files
+nbproject/**/*
+project.xml
+project.properties
