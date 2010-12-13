@@ -1,5 +1,6 @@
 <?php
-if (!defined('IN_CMS')) { exit(); }
+//security measure
+ if (!defined('IN_CMS')) { exit(); }
 /**
  * Fancy Image Gallery for Wolf CMS- Create gallery and display images with few clicks
  * Gallery is free for non-profit usage. For commercial usage, please contact one of the authors.

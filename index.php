@@ -13,7 +13,9 @@
  * @license http://www.gnu.org/licenses/gpl.html GPL License
  * @copyright medio.com.hr, 2009-2010
  */
-if (!defined('IN_CMS')) { exit(); }
+
+ //security measure
+ if (!defined('IN_CMS')) { exit(); }
 
 Plugin::setInfos(array(
     'id'          => 'fancy_image_gallery',
