@@ -3,7 +3,8 @@ h2. Fancy Image Gallery
 h3. What is it?
 
 Image Gallery for Wolf CMS with Jquery FancyBox plugin for effects.
-Current version is 0.8.3 (for Wolf 0.6.0 and 0.7.0)
+Current version is 0.8.4 (Wolf 0.7.0+)
+For Wolf 0.6.0 use version 0.8.3_w6
 For Wolf 0.5.5 use version 0.7.3
 Website: <a href="http://project79.net/projects/fancy-image-gallery">Project 79</a>
 
