@@ -21,15 +21,15 @@ Plugin::setInfos(array(
     'id'          => 'fancy_image_gallery',
     'title'       => 'Fancy Image Gallery',
     'description' => __('Provides easy to use image gallery with fancybox effect.'),
-    'version'     => '0.8.4',
+    'version'     => '0.8.5',
     'license'     => 'GPL',
     'author'      => 'Sanja Andjelkovic',
-    'website'     => 'http://medio.com.hr/',
+    'website'     => 'http://project79.net/',
     'update_url'  => 'http://www.project79.net/plugin-versions.xml',
-    'require_wolf_version' => '0.6.0'
+    'require_wolf_version' => '0.7.3'
 ));
 
-Plugin::addController('fancy_image_gallery', 'Fancy Image Gallery');
+Plugin::addController('fancy_image_gallery', 'Fancy Image Gallery', 'admin_view');
 
 // funkcija poziva css i fancybox iz foldera /js i /resources
 function fancy_resources(){

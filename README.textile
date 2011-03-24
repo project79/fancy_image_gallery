@@ -57,8 +57,13 @@ Copyright 2009-2010, http://medio.com.hr
 
 h3. Changelog
 
-h4. Version 0.8.4 (December 2010)
+h4. Version 0.8.5 (March 2011)
 
+* Fixed role/permission glitch
+
+h4. Version 0.8.4 (December 2010/March 2011)
+
+* Polish translation added (thanks to nowotny)
 * Russian translation added (thanks to Konstantin Baev)
 * Some extra files removed
 
