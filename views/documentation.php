@@ -8,10 +8,10 @@ if (!defined('IN_CMS')) { exit(); }
  *
  * @author Sanja Andjelkovic <sanja@medio.com.hr>
  * @author Dejan Andjelkovic <dejan@medio.com.hr>
- * @version 0.8.4
- * @for Wolf version 0.6.0 and above
+ * @version 0.8.6
+ * @for Wolf version 0.7.0 and above
  * @license http://www.gnu.org/licenses/gpl.html GPL License
- * @copyright medio.com.hr, 2009
+ * @copyright medio.com.hr & project79.net, 2009-2011
  */
  
 ?>
@@ -26,7 +26,7 @@ if (!defined('IN_CMS')) { exit(); }
 </p>
 <p>
 	Gallery uses <strong><em>titles of your images</em></strong> and displays them underneath of each image, so be careful when naming your
-	images or you'll end up with img1.jpg, img2.jpg etc.
+	images or you will end up with img1.jpg, img2.jpg etc.
 </p>
 <p>
 	<strong>NOTE:</strong> All folders with images (galleries) <strong>MUST</strong> be created under <strong><em>public/images/</em></strong> folder
@@ -35,34 +35,33 @@ if (!defined('IN_CMS')) { exit(); }
 
 <h3>1. Setting the Layout</h3>
 <p>
-	Download latest <a href="http://jquery.com" target="_blank">Jquery</a> library (this plugin is tested and works with version 1.4.1),
+	Download latest <a href="http://jquery.com" target="_blank">Jquery</a> library (this plugin is tested and works with version 1.4.x),
 	unzip it, put somewhere in public directory and link it between &lt;head&gt;&lt;/head&gt; tags.
 </p>
 	In your layout, put this code in &lt;head&gt;&lt;/head&gt; tag:<br />
-	<pre>&lt;?php fancy_resources(); ?&gt;</pre><br />
-	<pre>
-	&lt;script type="text/javascript"&gt;
-		$(function(){
-			$(".photo").fancybox({ 
-			'speedIn': 500, 
-			'speedOut': 500 
+<pre>
+&lt;?php fancy_resources(); ?&gt;
+&lt;script type="text/javascript"&gt;
+    $(function(){
+        $(".photo").fancybox({ 
+            'speedIn': 500, 
+            'speedOut': 500 
 			
-			/* Extra options are available
-			You can play around and see what fits your needs best.
-			If you does't need this extra options, please delete everything in between /* */ marks.
-			'overlayShow': true //choose between true or false
-			'overlayOpacity': 0.3, //choose opacity between 0.1 - 1, default is 0.3
-			'overlayColor': '#666', //choose any color for overlay, default is #666
-			'titleShow': true, //choose between: true or false, default is set to true
-			'titlePosition': 'outside', //choose between: 'outside','inside' or 'over', default is 'outside'
-			'transitionIn': 'fade', //chose between: 'fade', 'elastic' or 'none', default is 'fade'
-			'transitionOut': 'fade' //chose between: 'fade', 'elastic' or 'none', default is 'fade'
-			*/
-			
-			});
-		});
-	&lt;/script&gt;
-	</pre>
+            /* Extra options are available
+            You can play around and see what fits your needs best.
+            If you don't need this extra options, please delete everything in between comment marks.
+            'overlayShow': true //choose between true or false
+            'overlayOpacity': 0.3, //choose opacity between 0.1 - 1, default is 0.3
+            'overlayColor': '#666', //choose any color for overlay, default is #666
+            'titleShow': true, //choose between: true or false, default is set to true
+            'titlePosition': 'outside', //choose between: 'outside','inside' or 'over', default is 'outside'
+            'transitionIn': 'fade', //chose between: 'fade', 'elastic' or 'none', default is 'fade'
+            'transitionOut': 'fade' //chose between: 'fade', 'elastic' or 'none', default is 'fade'
+            */
+        });
+    });
+&lt;/script&gt;
+</pre>
 <p>
 	We have added some extra options which you can enable in your Layout. Play with it and see which fits you best.<br />
 	<strong>Note:</strong> Some options needs to be between single quotation marks ('like this')!!!
@@ -184,30 +183,38 @@ if (!defined('IN_CMS')) { exit(); }
 </pre>
 <h3>Languages</h3>
 <p>
-	Fancy Image Gallery has support for different languages. The plugin itself comes with English (common sense!), Croatian
-	(that's ours), German (a.renz) and French (oweb) language files. If you want, you can contribute by translating plugin into your language and send the file
-	via e-mail below.
+	Fancy Image Gallery has support for different languages. The plugin itself comes with these languages: 
 </p>
+<ul>
+    <li>English (common sense!),</li> 
+    <li>Croatian (that's ours),</li>
+    <li>French (thanks to oweb),</li>
+    <li>Spanish (thanks to rafaguilarsol),</li>
+    <li>Dutch (thanks to Fortron),</li>
+    <li>Russian (thanks to Konstantin Baev),</li>
+    <li>Polish (thanks to nowotny).</li>
+</ul>
+<p>If you want, you can contribute by translating plugin into your language and send the file via e-mail below.</p>
+
 
 <h3>Notes</h3>
 <p>
-	This gallery is tested and works with Wolf version 0.6.0, and should work with future releases too. If you need this plugin for lower
-	version of Wolf (v.0.5.5), please download version 0.7.3. Gallery supports ,jpg, .png and .gif image file formats and it's tested for each of them. 
+	This gallery is tested and works with Wolf version 0.7.+, and should work with future releases too. If you need this plugin for lower
+	version of Wolf (v.0.6.0), please download version 0.7.3. (or below). Gallery supports ,jpg, .png and .gif image file formats and it's tested for each of them. 
 	Creating thumbnails works with various sizes of width and height (tested: 100/100, 125/150, 250/300 etc.).
 </p>
 
 <h3>Licence</h3>
 <p>
-	Fancy Image Gallery is free for personal and non-profit use. For commercial usage please contact one of the authors below.
-	We wont charge you for it, just to let us know. If you encounter an error, please drop a line by e-mail or post a topic on Wolf's
+	Fancy Image Gallery is free for personal, non-profit and commercial use. If you encounter an error, please drop a line by e-mail or post a topic on Wolf's
 	forum under Third-party / User contributed Plugins.
 </p>
 
 <h3>Authors</h3>
 <p>
-	Developer and leading math brain: Sanja Andjelkovic (sanja@medio.com.hr)<br />
+        Developer and leading math brain: Sanja Andjelkovic (sanja@medio.com.hr)<br />
 	Coder and wannabe developer: Dejan Andjelkovic (dejan@medio.com.hr)<br />
-    Many thanks to our man from the shadow for his help: Martijn van der Kleijn (martijn.niji@gmail.com)<br />
-    Project website: <a href="http://project79.net/projects/fancy-image-gallery" target="_blank">Fancy Image Gallery</a><br />
-    Company website: <a href="http://medio.com.hr" target="_blank">medio com hr</a>
+        Many thanks to our man from the shadow for his help: Martijn van der Kleijn (martijn.niji@gmail.com)<br />
+        Project website: <a href="http://project79.net/projects/fancy-image-gallery" target="_blank">Fancy Image Gallery</a><br />
+        Company website: <a href="http://medio.com.hr" target="_blank">medio com hr</a>
 </p>
