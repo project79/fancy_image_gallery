@@ -3,7 +3,7 @@ h2. Fancy Image Gallery
 h3. What is it?
 
 Image Gallery for Wolf CMS with Jquery FancyBox plugin for effects.
-Current version is 0.8.4 (Wolf 0.7.0+)
+Current version is 0.8.6 (Wolf 0.7.0+)
 For Wolf 0.6.0 use version 0.8.3_w6
 For Wolf 0.5.5 use version 0.7.3
 Website: <a href="http://project79.net/projects/fancy-image-gallery">Project 79</a>
@@ -37,7 +37,7 @@ h3. Setup
 
 h3. Documentation
 
-After enabling the plugin, you'll find all neccessery documentation under "Fancy Image Gallery" tab. Read it before you start using the gallery.
+After enabling the plugin, you'll find all necessary documentation under "Fancy Image Gallery" tab. Read it before you start using the gallery.
 For more visual tutorials visit http://project79.net
 	
 h3. Notes
@@ -56,6 +56,13 @@ Coder: Dejan Andjelkovic <dejan@medio.com.hr>
 Copyright 2009-2010, http://medio.com.hr
 
 h3. Changelog
+
+h4. Version 0.8.6 (May 2011)
+
+* Title of images are displayed correctly (without suffix/underscores)
+* Thumbs recognition portrait/landscape
+* Documentation corrected
+* Minor code fixes
 
 h4. Version 0.8.5 (March 2011)
 
