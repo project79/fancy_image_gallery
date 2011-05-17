@@ -3,16 +3,16 @@
  if (!defined('IN_CMS')) { exit(); }
 /**
  * Fancy Image Gallery for Wolf CMS- Create gallery and display images with few clicks
- * Gallery is free for non-profit usage. For commercial usage, please contact one of the authors.
+ * Gallery is free for non-profit and commercial usage.
  * @package wolf
  * @subpackage plugin.fancy_image_gallery
  *
  * @author Sanja Andjelkovic <sanja@medio.com.hr>
  * @author Dejan Andjelkovic <dejan@medio.com.hr>
- * @version 0.8.4
- * @for Wolf version 0.6.0 and above
+ * @version 0.8.6
+ * @for Wolf version 0.7.0 and above
  * @license http://www.gnu.org/licenses/gpl.html GPL License
- * @copyright medio.com.hr, 2009-2010
+ * @copyright medio.com.hr & project79.net, 2009-2011
  */
 
 class FancyImageGalleryController extends PluginController {
@@ -74,7 +74,7 @@ class FancyImageGalleryController extends PluginController {
 		{
 			if ($file != '.' && $file != '..')
 			{
-                           
+                                                      
                 if(strstr($file,'.jpg') || strstr($file,'.JPG') || strstr($file,'.png') || strstr($file,'.PNG') || strstr($file,'.gif') || strstr($file,'.GIF'))
 				{
 
@@ -131,16 +131,23 @@ class FancyImageGalleryController extends PluginController {
 
                                 if(substr($images,-3) == "jpg")
                                 {
+                                    
                                     $starting_image = imagecreatefromjpeg($image_dir . $images);
                                     $width = imagesx($starting_image);
                                     $height = imagesy($starting_image);
-
-
-                                    $images = str_replace ('.jpg', '', $images);
+                                    
+                                    if($width<$height) {$new_width = $thumb_height;
+                                                        $new_height = $thumb_width;
+                                    } else {
+                                        $new_width = $thumb_width;
+                                        $new_height = $thumb_height;
+                                    }
+                                    
+                                      $images = str_replace ('.jpg', '', $images);
                                     //$images = str_replace ('.JPG', '', $images);
 
-                                    $thumb_image = imagecreatetruecolor($thumb_width, $thumb_height);
-                                    imagecopyresampled($thumb_image, $starting_image, 0, 0, 0, 0, $thumb_width, $thumb_height, $width, $height);
+                                    $thumb_image = imagecreatetruecolor($new_width, $new_height);
+                                    imagecopyresampled($thumb_image, $starting_image, 0, 0, 0, 0, $new_width, $new_height, $width, $height);
                                     imagejpeg($thumb_image, $image_dir . $images . '-thumb.jpg');
                                 
                                 }
@@ -149,11 +156,18 @@ class FancyImageGalleryController extends PluginController {
                                     $starting_image = imagecreatefromjpeg($image_dir . $images);
                                     $width = imagesx($starting_image);
                                     $height = imagesy($starting_image);
+                                    
+                                    if($width<$height) {$new_width = $thumb_height;
+                                                        $new_height = $thumb_width;
+                                    } else {
+                                        $new_width = $thumb_width;
+                                        $new_height = $thumb_height;
+                                    }
 
                                     $images = str_replace ('.JPG', '', $images);
 
-                                    $thumb_image = imagecreatetruecolor($thumb_width, $thumb_height);
-                                    imagecopyresampled($thumb_image, $starting_image, 0, 0, 0, 0, $thumb_width, $thumb_height, $width, $height);
+                                    $thumb_image = imagecreatetruecolor($new_width, $new_height);
+                                    imagecopyresampled($thumb_image, $starting_image, 0, 0, 0, 0, $new_width, $new_height, $width, $height);
                                     imagejpeg($thumb_image, $image_dir . $images . '-thumb.JPG');
                                 
                                 }
@@ -163,11 +177,18 @@ class FancyImageGalleryController extends PluginController {
                                     $starting_image = imagecreatefromgif($image_dir . $images);
                                     $width = imagesx($starting_image);
                                     $height = imagesy($starting_image);
+                                    
+                                    if($width<$height) {$new_width = $thumb_height;
+                                                        $new_height = $thumb_width;
+                                    } else {
+                                        $new_width = $thumb_width;
+                                        $new_height = $thumb_height;
+                                    }
 
                                     $images = str_replace ('.gif', '', $images);
 
-                                    $thumb_image = imagecreatetruecolor($thumb_width, $thumb_height);
-                                    imagecopyresampled($thumb_image, $starting_image, 0, 0, 0, 0, $thumb_width, $thumb_height, $width, $height);
+                                    $thumb_image = imagecreatetruecolor($new_width, $new_height);
+                                    imagecopyresampled($thumb_image, $starting_image, 0, 0, 0, 0, $new_width, $new_height, $width, $height);
                                     imagegif($thumb_image, $image_dir . $images . '-thumb.gif');
                                 }
 								elseif(substr($images,-3) == "GIF")
@@ -175,11 +196,18 @@ class FancyImageGalleryController extends PluginController {
                                     $starting_image = imagecreatefromgif($image_dir . $images);
                                     $width = imagesx($starting_image);
                                     $height = imagesy($starting_image);
+                                    
+                                    if($width<$height) {$new_width = $thumb_height;
+                                                        $new_height = $thumb_width;
+                                    } else {
+                                        $new_width = $thumb_width;
+                                        $new_height = $thumb_height;
+                                    }
 
                                     $images = str_replace ('.GIF', '', $images);
 
-                                    $thumb_image = imagecreatetruecolor($thumb_width, $thumb_height);
-                                    imagecopyresampled($thumb_image, $starting_image, 0, 0, 0, 0, $thumb_width, $thumb_height, $width, $height);
+                                    $thumb_image = imagecreatetruecolor($new_width, $new_height);
+                                    imagecopyresampled($thumb_image, $starting_image, 0, 0, 0, 0, $new_width, $new_height, $width, $height);
                                     imagejpeg($thumb_image, $image_dir . $images . '-thumb.GIF');
                                 
                                 }
@@ -188,11 +216,18 @@ class FancyImageGalleryController extends PluginController {
                                     $starting_image = imagecreatefrompng($image_dir . $images);
                                     $width = imagesx($starting_image);
                                     $height = imagesy($starting_image);
+                                    
+                                    if($width<$height) {$new_width = $thumb_height;
+                                                        $new_height = $thumb_width;
+                                    } else {
+                                        $new_width = $thumb_width;
+                                        $new_height = $thumb_height;
+                                    }
 
                                     $images = str_replace ('.PNG', '', $images);
 
-                                    $thumb_image = imagecreatetruecolor($thumb_width, $thumb_height);
-                                    imagecopyresampled($thumb_image, $starting_image, 0, 0, 0, 0, $thumb_width, $thumb_height, $width, $height);
+                                    $thumb_image = imagecreatetruecolor($new_width, $new_height);
+                                    imagecopyresampled($thumb_image, $starting_image, 0, 0, 0, 0, $new_width, $new_height, $width, $height);
                                     imagegif($thumb_image, $image_dir . $images . '-thumb.PNG');
                                 }
 
@@ -201,11 +236,18 @@ class FancyImageGalleryController extends PluginController {
                                     $starting_image = imagecreatefrompng($image_dir . $images);
                                     $width = imagesx($starting_image);
                                     $height = imagesy($starting_image);
+                                    
+                                    if($width<$height) {$new_width = $thumb_height;
+                                                        $new_height = $thumb_width;
+                                    } else {
+                                        $new_width = $thumb_width;
+                                        $new_height = $thumb_height;
+                                    }
 
                                     $images = str_replace ('.png', '', $images);
 
-                                    $thumb_image = imagecreatetruecolor($thumb_width, $thumb_height);
-                                    imagecopyresampled($thumb_image, $starting_image, 0, 0, 0, 0, $thumb_width, $thumb_height, $width, $height);
+                                    $thumb_image = imagecreatetruecolor($new_width, $new_height);
+                                    imagecopyresampled($thumb_image, $starting_image, 0, 0, 0, 0, $new_width, $new_height, $width, $height);
                                     imagepng($thumb_image, $image_dir . $images . '-thumb.png');
                                 }
                                 $counter++;
