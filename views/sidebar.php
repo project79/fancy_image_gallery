@@ -8,10 +8,10 @@ if (!defined('IN_CMS')) { exit(); }
  *
  * @author Sanja Andjelkovic <sanja@medio.com.hr>
  * @author Dejan Andjelkovic <dejan@medio.com.hr>
- * @version 0.8.4
- * @for Wolf version 0.6.0 and above
+ * @version 0.8.6
+ * @for Wolf version 0.7.0 and above
  * @license http://www.gnu.org/licenses/gpl.html GPL License
- * @copyright medio.com.hr, 2009
+ * @copyright medio.com.hr & project79.net, 2009-2011
  */
  
 ?>
