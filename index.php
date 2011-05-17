@@ -2,16 +2,16 @@
 
 /**
  * Fancy Image Gallery for Wolf CMS- Create gallery and display images with few clicks
- * Gallery is free for non-profit usage. For commercial usage, please contact one of the authors.
+ * Gallery is free for non-profit and commercial usage.
  * @package wolf
  * @subpackage plugin.fancy_image_gallery
  *
  * @author Sanja Andjelkovic <sanja@medio.com.hr>
  * @author Dejan Andjelkovic <dejan@medio.com.hr>
- * @version 0.8.4
- * @for Wolf version 0.6.0 and above
+ * @version 0.8.6
+ * @for Wolf version 0.7.0 and above
  * @license http://www.gnu.org/licenses/gpl.html GPL License
- * @copyright medio.com.hr, 2009-2010
+ * @copyright medio.com.hr & project79.net, 2009-2011
  */
 
  //security measure
@@ -21,7 +21,7 @@ Plugin::setInfos(array(
     'id'          => 'fancy_image_gallery',
     'title'       => 'Fancy Image Gallery',
     'description' => __('Provides easy to use image gallery with fancybox effect.'),
-    'version'     => '0.8.5',
+    'version'     => '0.8.6',
     'license'     => 'GPL',
     'author'      => 'Sanja Andjelkovic',
     'website'     => 'http://project79.net/',
@@ -118,13 +118,14 @@ function fancy($path){
 
                 if(count($files))
 		{
-				  natsort($files); //sortiranje; dodano u 0.8.1
+                  natsort($files); //sortiranje; dodano u 0.8.1
                   while ($counter<=$images)
                   {
 			foreach($files as $file)
 			{
 				$counter++;
-				echo '<a class="photo" rel="my-gallery" href="',$fullpath,str_replace('-thumb','',$file),'" title="',str_replace('-thumb','',$file),'"><img src="',$fullpath,$file,'"/></a>';
+                                $str=str_replace('_',' ',$file); // ciscenje naslova; 0.8.6
+                                echo '<a class="photo" rel="my-gallery" href="',$fullpath,str_replace('-thumb','',$file),'" title="',preg_replace('/\-thumb..*$/i', '',$str),'"><img src="',$fullpath,$file,'"/></a>';
 			}
                    
                  }
