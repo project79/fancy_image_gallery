@@ -142,7 +142,7 @@ class FancyImageGalleryController extends PluginController {
 			{
 				$parts = explode('.', $file);
 				$ext = end($parts);
-				$ext = strtolower($ext);
+				$ext = $ext;
 				
 				// Process the file and get result
 				$results[$file] = $this->_process_image($image_dir, $file, $thumb_width, $thumb_height);
@@ -189,8 +189,8 @@ class FancyImageGalleryController extends PluginController {
 	{
 		// Get/set info about the name
 		$fileparts = explode('.', $filename);
-		$basename = strtolower($fileparts[0]);
-		$ext = strtolower(end($fileparts));
+		$basename = $fileparts[0];
+		$ext = end($fileparts);
 		
 		// Full path to file
 		$file_path = $image_dir . $filename;
@@ -199,7 +199,7 @@ class FancyImageGalleryController extends PluginController {
 		$res = false;
 		
 		// Make correct image handle from source file
-		switch ($ext)
+		switch (strtolower($ext))
 		{
 			case 'jpg':
 				$source = imagecreatefromjpeg($file_path);
@@ -265,7 +265,7 @@ class FancyImageGalleryController extends PluginController {
 			);
 			
 			// Save the destination image
-			switch ($ext)
+			switch (strtolower($ext))
 			{
 				case 'jpg':
 					$res = imagejpeg($dest_img, $image_dir . $basename . '-thumb.jpg');
