@@ -16,247 +16,279 @@
  */
 
 class FancyImageGalleryController extends PluginController {
-
-	public static function _checkLog() {
+	
+	
+	public static function _checkLog()
+	{
         AuthUser::load();
-        if ( ! AuthUser::isLoggedIn()) {
+        if ( ! AuthUser::isLoggedIn())
+		{
             redirect(get_url('login'));
         }
     }
 	
-    public function __construct() {
+	
+    public function __construct()
+	{
 		self::_checkLog();
-		
         $this->setLayout('backend');
         $this->assignToLayout('sidebar', new View('../../plugins/fancy_image_gallery/views/sidebar'));
     }
-
+	
+	
     function index($page = 0)
     {
         $this->display('fancy_image_gallery/views/settings');
     }
-
-    public function documentation() {
+	
+	
+    public function documentation()
+	{
         $this->display('fancy_image_gallery/views/documentation');
     }
-
-    function settings() {
-
+	
+	
+    function settings()
+	{
         $this->display('fancy_image_gallery/views/settings', Plugin::getAllSettings('fancy_image_gallery'));
     }
-
-    public function create_thumb(){
-
-            $path = $_POST['gallery_path'];
-            
-            if(substr($path,-1) != '/')
-            {
-                Flash::set('error', __('Put the trailing slash at the end of folder name!'));
-                redirect(get_url('plugin/fancy_image_gallery/'));
-            }
-
-            $fullpath = str_replace ('?', '',BASE_URL) . 'public/images/' . $path;
-
-            $image_dir = CMS_ROOT . '/public/images/' . $path;
-
-            if(! is_dir($image_dir))
-            {
-                Flash::set('error', __('The folder does not exist!'));
-                redirect(get_url('plugin/fancy_image_gallery/'));
-            }
-            
-            $handle = opendir($image_dir);
-            $count_images = 0;
-
-            if ($handle)
-            {
-                while (false !== ($file = readdir($handle)))
+	
+	
+    public function create_thumb()
+	{
+		$path = $_POST['gallery_path'];
+		
+		if (substr($path, -1) != '/')
 		{
-			if ($file != '.' && $file != '..')
-			{
-                                                      
-                if(strstr($file,'.jpg') || strstr($file,'.JPG') || strstr($file,'.png') || strstr($file,'.PNG') || strstr($file,'.gif') || strstr($file,'.GIF'))
-				{
+			// Put trailing slash on path instead of warning user about it
+			$path = $path . '/';
+		}
+		
+		$image_dir = CMS_ROOT . '/public/images/' . $path;
 
-                                        if(strtolower(substr($file,-10,-4)) == "-thumb")
-                                        {
-                                            unlink($image_dir . '/' . $file);
-                                        }
-                                        else{
-                                        $files[] = $file;
-                                        }
-				
-                                        $count_images++;
-                                }
-                           
+		if ( ! is_dir($image_dir))
+		{
+			Flash::set('error', __('The folder does not exist!'));
+			redirect(get_url('plugin/fancy_image_gallery/'));
+		}
+		
+		// Check for valid width/height
+		$thumb_width = $_POST['thumb_width'];
+		$thumb_height = $_POST['thumb_height'];
+		
+		if ($thumb_width == NULL)
+		{
+			Flash::set('error', __('Specify thumbnail width!'));
+			redirect(get_url('plugin/fancy_image_gallery/'));
+		}
+
+		if ($thumb_height == NULL)
+		{
+			Flash::set('error', __('Specify thumbnail height!'));
+			redirect(get_url('plugin/fancy_image_gallery/'));
+		}
+		
+		
+		// Open the images folder and find out what's in
+		$handle = opendir($image_dir);
+		$count_images = 0;
+
+		if ($handle)
+		{
+			while (false !== ($file = readdir($handle)))
+			{
+				if ($file != '.' && $file != '..')
+				{
+					// Grab extension of file and convert to lowercase
+					$parts = explode('.', $file);
+					$ext = end($parts);
+					$ext = strtolower($ext);
+					
+					if (in_array($ext, array('jpg', 'gif', 'png')))
+					{
+						if (preg_match('/-thumb\./', strtolower($file)))
+						{
+							// Delete if thumbnail
+							unlink($image_dir . '/' . $file);
+						}
+						else
+						{
+							$files[] = $file;
+						}
+						
+						$count_images++;
+					}
+				}
 			}
 		}
+		
 		closedir($handle);
-            }
-
-            $counter = 0;
-            $thumb_width = $_POST['thumb_width'];
-            $thumb_height = $_POST['thumb_height'];
-
-            if($thumb_width == NULL)
-            {
-                Flash::set('error', __('Specify thumbnail width!'));
-                redirect(get_url('plugin/fancy_image_gallery/'));
-            }
-
-            if($thumb_height == NULL)
-            {
-                Flash::set('error', __('Specify thumbnail height!'));
-                redirect(get_url('plugin/fancy_image_gallery/'));
-            }
-
-            if($count_images == 0)
-            {
-                Flash::set('error', __('There are no images in this folder!'));
-                redirect(get_url('plugin/fancy_image_gallery/'));
-            }
-
-            else
-            {
-                if($files)
-			{
-                  while ($counter<=count($files)-1)
-                  {
+		
+		$counter = 0;
+		
+		if($count_images == 0)
+		{
+			Flash::set('error', __('There are no images in this folder!'));
+			redirect(get_url('plugin/fancy_image_gallery/'));
+		}
+		
+		if($files)
+		{
+			$success_count = 0;
+			$failure_count = 0;
+			
+			// Loop through all the files
 			foreach($files as $file)
 			{
-                        
-                            $images = $files[$counter]; 
+				$parts = explode('.', $file);
+				$ext = end($parts);
+				$ext = $ext;
+				
+				// Process the file and get result
+				$results[$file] = $this->_process_image($image_dir, $file, $thumb_width, $thumb_height);
+				
+				// Check status and increment counters
+				if ($results[$file] == TRUE)
+				{
+					$success_count++;
+				}
+				else
+				{
+					$failure_count++;
+				}
+			}
 			
-                     
-
-                                if(substr($images,-3) == "jpg")
-                                {
-                                    
-                                    $starting_image = imagecreatefromjpeg($image_dir . $images);
-                                    $width = imagesx($starting_image);
-                                    $height = imagesy($starting_image);
-                                    
-                                    if($width<$height) {$new_width = $thumb_height;
-                                                        $new_height = $thumb_width;
-                                    } else {
-                                        $new_width = $thumb_width;
-                                        $new_height = $thumb_height;
-                                    }
-                                    
-                                      $images = str_replace ('.jpg', '', $images);
-                                    //$images = str_replace ('.JPG', '', $images);
-
-                                    $thumb_image = imagecreatetruecolor($new_width, $new_height);
-                                    imagecopyresampled($thumb_image, $starting_image, 0, 0, 0, 0, $new_width, $new_height, $width, $height);
-                                    imagejpeg($thumb_image, $image_dir . $images . '-thumb.jpg');
-                                
-                                }
-								elseif(substr($images,-3) == "JPG")
-                                {
-                                    $starting_image = imagecreatefromjpeg($image_dir . $images);
-                                    $width = imagesx($starting_image);
-                                    $height = imagesy($starting_image);
-                                    
-                                    if($width<$height) {$new_width = $thumb_height;
-                                                        $new_height = $thumb_width;
-                                    } else {
-                                        $new_width = $thumb_width;
-                                        $new_height = $thumb_height;
-                                    }
-
-                                    $images = str_replace ('.JPG', '', $images);
-
-                                    $thumb_image = imagecreatetruecolor($new_width, $new_height);
-                                    imagecopyresampled($thumb_image, $starting_image, 0, 0, 0, 0, $new_width, $new_height, $width, $height);
-                                    imagejpeg($thumb_image, $image_dir . $images . '-thumb.JPG');
-                                
-                                }
-
-                                elseif(substr($images,-3) == "gif")
-                                {
-                                    $starting_image = imagecreatefromgif($image_dir . $images);
-                                    $width = imagesx($starting_image);
-                                    $height = imagesy($starting_image);
-                                    
-                                    if($width<$height) {$new_width = $thumb_height;
-                                                        $new_height = $thumb_width;
-                                    } else {
-                                        $new_width = $thumb_width;
-                                        $new_height = $thumb_height;
-                                    }
-
-                                    $images = str_replace ('.gif', '', $images);
-
-                                    $thumb_image = imagecreatetruecolor($new_width, $new_height);
-                                    imagecopyresampled($thumb_image, $starting_image, 0, 0, 0, 0, $new_width, $new_height, $width, $height);
-                                    imagegif($thumb_image, $image_dir . $images . '-thumb.gif');
-                                }
-								elseif(substr($images,-3) == "GIF")
-                                {
-                                    $starting_image = imagecreatefromgif($image_dir . $images);
-                                    $width = imagesx($starting_image);
-                                    $height = imagesy($starting_image);
-                                    
-                                    if($width<$height) {$new_width = $thumb_height;
-                                                        $new_height = $thumb_width;
-                                    } else {
-                                        $new_width = $thumb_width;
-                                        $new_height = $thumb_height;
-                                    }
-
-                                    $images = str_replace ('.GIF', '', $images);
-
-                                    $thumb_image = imagecreatetruecolor($new_width, $new_height);
-                                    imagecopyresampled($thumb_image, $starting_image, 0, 0, 0, 0, $new_width, $new_height, $width, $height);
-                                    imagejpeg($thumb_image, $image_dir . $images . '-thumb.GIF');
-                                
-                                }
-				    			elseif(substr($images,-3) == "PNG")
-                                {
-                                    $starting_image = imagecreatefrompng($image_dir . $images);
-                                    $width = imagesx($starting_image);
-                                    $height = imagesy($starting_image);
-                                    
-                                    if($width<$height) {$new_width = $thumb_height;
-                                                        $new_height = $thumb_width;
-                                    } else {
-                                        $new_width = $thumb_width;
-                                        $new_height = $thumb_height;
-                                    }
-
-                                    $images = str_replace ('.PNG', '', $images);
-
-                                    $thumb_image = imagecreatetruecolor($new_width, $new_height);
-                                    imagecopyresampled($thumb_image, $starting_image, 0, 0, 0, 0, $new_width, $new_height, $width, $height);
-                                    imagegif($thumb_image, $image_dir . $images . '-thumb.PNG');
-                                }
-
-                                else
-                                {
-                                    $starting_image = imagecreatefrompng($image_dir . $images);
-                                    $width = imagesx($starting_image);
-                                    $height = imagesy($starting_image);
-                                    
-                                    if($width<$height) {$new_width = $thumb_height;
-                                                        $new_height = $thumb_width;
-                                    } else {
-                                        $new_width = $thumb_width;
-                                        $new_height = $thumb_height;
-                                    }
-
-                                    $images = str_replace ('.png', '', $images);
-
-                                    $thumb_image = imagecreatetruecolor($new_width, $new_height);
-                                    imagecopyresampled($thumb_image, $starting_image, 0, 0, 0, 0, $new_width, $new_height, $width, $height);
-                                    imagepng($thumb_image, $image_dir . $images . '-thumb.png');
-                                }
-                                $counter++;
-                         }
-
-                    }
-                    Flash::set('success', __('Thumbnails are successfully created!'));
-                    redirect(get_url('plugin/fancy_image_gallery/'));
-                }
-            }
+			// Set flash messages based on processed status of files
+			if ($success_count == count($files))
+			{
+				Flash::set('success', __('Thumbnails have been successfully created!'));
+			}
+			
+			if ($failure_count > 0 && $success_count > 0)
+			{
+				Flash::set('error', __('Some thumbnails could not be created.'));
+			}
+			
+			if ($failure_count == count($files))
+			{
+				Flash::set('error', __('No thumbnail images could be created.'));
+			}
+		
+		}
+		else
+		{
+			Flash::set('error', __('There are no images in this folder!'));
+		}
+		
+		redirect(get_url('plugin/fancy_image_gallery/'));
+		
 	}
+	
+	
+	private function _process_image($image_dir, $filename = '', $dest_width, $dest_height)
+	{
+		// Get/set info about the name
+		$fileparts = explode('.', $filename);
+		$basename = $fileparts[0];
+		$ext = end($fileparts);
+		
+		// Full path to file
+		$file_path = $image_dir . $filename;
+		
+		// Initial result to return
+		$res = false;
+		
+		// Make correct image handle from source file
+		switch (strtolower($ext))
+		{
+			case 'jpg':
+				$source = imagecreatefromjpeg($file_path);
+			break;
+			
+			case 'gif':
+				$source = imagecreatefromgif($file_path);
+			break;
+			
+			case 'png':
+				$source = imagecreatefrompng($file_path);
+			break;
+		}
+		
+		// Get dimensions of original file
+		$width = imagesx($source);
+		$height = imagesy($source);
+		
+		// Check dimeisions are OK to resize for
+		if ($width >= $dest_width AND $height >= $dest_height)
+		{
+			$proportion_X = $width / $dest_width;
+			$proportion_Y = $height / $dest_height;
+			
+			if ($proportion_X > $proportion_Y )
+			{
+				$proportion = $proportion_Y;
+			}
+			else
+			{
+				$proportion = $proportion_X;
+			}
+			
+			$target['width'] = $dest_width * $proportion;
+			$target['height'] = $dest_height * $proportion;
+			
+			$original['diagonal_center'] = round(sqrt(($width*$width)+($height*$height))/2);
+			
+			$target['diagonal_center'] = round(sqrt(($target['width'] * $target['width']) + ($target['height'] * $target['height'])) / 2 );
+			
+			$crop = round($original['diagonal_center'] - $target['diagonal_center']);
+			
+			if ($proportion_X < $proportion_Y )
+			{
+				$target['x'] = 0;
+				$target['y'] = round( ( ($height / 2) * $crop) / $target['diagonal_center']);
+			}
+			else
+			{
+				$target['x'] =  round( ( ($width / 2) * $crop) / $target['diagonal_center']);
+				$target['y'] = 0;
+			}
+			
+			// Create handle to new thumbnail image
+			$dest_img = imagecreatetruecolor($dest_width, $dest_height);
+			
+			// Copy the source iamge to the new image with crop/resize parameters
+			imagecopyresampled($dest_img, $source, 
+				0, 0, 
+				$target['x'], $target['y'], 
+				$dest_width, $dest_height,
+				$target['width'], $target['height']
+			);
+			
+			// Save the destination image
+			switch (strtolower($ext))
+			{
+				case 'jpg':
+					$res = imagejpeg($dest_img, $image_dir . $basename . '-thumb.jpg');
+				break;
+				
+				case 'gif':
+					$res = imagegif($dest_img, $image_dir . $basename . '-thumb.gif');
+				break;
+				
+				case 'png':
+					$res = imagepng($dest_img, $image_dir . $basename . '-thumb.png');
+				break;
+			}
+			
+			// Close files
+			imagedestroy($dest_img);
+			imagedestroy($source);
+			
+		}
+		
+		return $res;
+		
+	}
+	
+
 }
