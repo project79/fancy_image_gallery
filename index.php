@@ -44,47 +44,115 @@ function fancy_resources(){
 
 
 // funkcija koja izbacuje samo jednu sliku iz direktorija i pravi link na odabranu galeriju
+function fancy_list(){
+
+    $main_dir = CMS_ROOT . '/public/images/';
+		
+	$open_main = opendir ($main_dir);
+		
+	if ($open_main) {
+            while (false !== ($folder = readdir($open_main)))
+            {
+                if ($folder != '.' && $folder != '..')
+                {
+                    $folders[] = $folder;	
+                }
+            }
+            closedir($open_main);
+        }
+		
+	// drugi korak - propusti kroz petlju i ispisi putanje
+	$number = count($folders);
+        $counter=1;
+
+
+        if(count($folders)){
+            //natsort($folders); //sortiranje; dodano u 0.8.1
+            while ($counter<=$number) {
+                foreach($folders as $folder) {
+                    $counter++;	
+
+                    //$fullpath = str_replace ('?', '',BASE_URL) . 'public/images/' . $folder . '/';
+
+                    $image_dir = CMS_ROOT . '/public/images/' . $folder . '/';
+
+
+                    $handle = opendir($image_dir);
+                    $files = array();
+                        if ($handle) {
+                            while (false !== ($file = readdir($handle)))
+                            {
+                                if ($file != '.' && $file != '..')
+                                {
+                                    if(strstr($file,'-thumb'))
+                                    {
+                                        $files = $file;
+
+                                    }
+                                }
+                            }
+
+                            closedir($handle);						
+                        }
+
+                    // propusti kroz petlju i ispisi linkove, te ih vezi za galeriju
+                    // za title ispisi samo krajnji direktorij u kojem se nalaze slike		
+
+                    $images = $files;
+                    $path = str_replace(dirname($folder), '', $folder);
+                    $fullpath = str_replace ('?', '',BASE_URL) . 'public/images/' . $path . '/';
+
+                    if($files) {
+
+                       echo '<a class="link" rel="show-me-all" href="',BASE_URL . 'galerije/' . $path . '/','" title="',str_replace('/','',$path),'"><img src="',$fullpath, $images,'" /></a>',"\n";
+
+                    }
+                    else {
+                        echo __('There are no images in this gallery.');
+                    }
+                }
+        }
+    }
+}
+
+// funkcija koja izbacuje samo jednu sliku iz direktorija i pravi link na odabranu galeriju
 function fancy_parent($path, $child){
 
         $fullpath = str_replace ('?', '',BASE_URL) . 'public/images/' . $path;
 
         $image_dir = CMS_ROOT . '/public/images/' . $path;
                 
-		$handle = opendir($image_dir);
+        $handle = opendir($image_dir);
 
-                
-		if ($handle) {
-			while (false !== ($file = readdir($handle)))
-			{
-				if ($file != '.' && $file != '..')
-				{
-					if(strstr($file,'-thumb'))
-					{
-						$files[] = $file;
-                                                
-					}
-				}
-			}
-			closedir($handle);
-		}
 
-		// propusti kroz petlju i ispisi linkove, te ih vezi za galeriju
-		// za title ispisi samo krajnji direktorij u kojem se nalaze slike
-                
-		$images = $files[0];
+        if ($handle) {
+            while (false !== ($file = readdir($handle)))
+            {
+                if ($file != '.' && $file != '..')
+                {
+                    if(strstr($file,'-thumb'))
+                    {
+                        $files[] = $file;
+                    }
+                }
+            }
+            closedir($handle);
+        }
+
+        // propusti kroz petlju i ispisi linkove, te ih vezi za galeriju
+        // za title ispisi samo krajnji direktorij u kojem se nalaze slike
+
+        $images = $files[0];
         $path = str_replace(dirname($path), '', $path);
 
-                if($files)
-		{
+        if($files) {
 
-                    echo '<a class="link" rel="show-me-all" href="',BASE_URL . $child,'" title="',str_replace('/','',$path),'"><img src="',$fullpath,$images,'" width="125" height="100" /></a>',"\n";
+            echo '<a class="link" rel="show-me-all" href="',BASE_URL . $child,'" title="',str_replace('/','',$path),'"><img src="',$fullpath,$images,'" width="125" height="100" /></a>',"\n";
 
-                    
-                }
-		else
-		{
-			echo __('There are no images in this gallery.');
-		}
+            }
+        else {
+            echo __('There are no images in this gallery.');
+        }
 }
 
 function fancy($path){
@@ -93,46 +161,45 @@ function fancy($path){
 
         $image_dir = CMS_ROOT . '/public/images/' . $path;
 	        
-		$handle = opendir($image_dir);
-		
-			
-		// prvi korak:  citaj direktorij i napravi polje
-		if ($handle) {
-			while (false !== ($file = readdir($handle)))
-			{
-				if ($file != '.' && $file != '..') 
-				{
-					if(strstr($file,'-thumb'))
-					{
-						$files[] = $file;
-					}
-				}
-			}
-			closedir($handle);
-		}
-		
-		// drugi korak - propusti kroz petlju i ispisi slike
-		$images = count($files);
-                $counter=1;
+        $handle = opendir($image_dir);
 
 
-                if(count($files))
-		{
-                  natsort($files); //sortiranje; dodano u 0.8.1
-                  while ($counter<=$images)
-                  {
-			foreach($files as $file)
-			{
-				$counter++;
-                                $str=str_replace('_',' ',$file); // ciscenje naslova; 0.8.6
-                                echo '<a class="photo" rel="my-gallery" href="',$fullpath,str_replace('-thumb','',$file),'" title="',preg_replace('/\-thumb..*$/i', '',$str),'"><img src="',$fullpath,$file,'"/></a>';
-			}
-                   
-                 }
+        // prvi korak:  citaj direktorij i napravi polje
+        if ($handle) {
+            while (false !== ($file = readdir($handle)))
+            {
+                if ($file != '.' && $file != '..') 
+                {
+                    if(strstr($file,'-thumb'))
+                    {
+                            $files[] = $file;
+                    }
+                }
+            }
+            closedir($handle);
         }
-		else
-		{
-			echo __('There are no images in this gallery.');
-		}
-}
-?>
+
+        // drugi korak - propusti kroz petlju i ispisi slike
+        $images = count($files);
+        $counter=1;
+
+
+        if(count($files))
+        {
+            natsort($files); //sortiranje; dodano u 0.8.1
+            while ($counter<=$images)
+            {
+                foreach($files as $file)
+                {
+                    $counter++;
+                    $str=str_replace('_',' ',$file); // ciscenje naslova; 0.8.6
+                    echo '<a class="photo" rel="my-gallery" href="',$fullpath,str_replace('-thumb','',$file),'" title="',preg_replace('/\-thumb..*$/i', '',$str),'"><img src="',$fullpath,$file,'"/></a>';
+                }
+
+            }
+        }
+        else
+        {
+            echo __('There are no images in this gallery.');
+        }
+} ?>
