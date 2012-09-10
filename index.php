@@ -99,12 +99,13 @@ function fancy_list(){
                     // za title ispisi samo krajnji direktorij u kojem se nalaze slike		
 
                     $images = $files;
+                    $galleryname = 'gallery'; // Slug of your main gallery page e.g. my-gallery
                     $path = str_replace(dirname($folder), '', $folder);
                     $fullpath = str_replace ('?', '',BASE_URL) . 'public/images/' . $path . '/';
 
                     if($files) {
 
-                       echo '<a class="link" rel="show-me-all" href="',BASE_URL . 'galerije/' . $path . '/','" title="',str_replace('/','',$path),'"><img src="',$fullpath, $images,'" /></a>',"\n";
+                       echo '<a class="link" rel="show-me-all" href="',BASE_URL . $galleryname . '/' . $path . '/','" title="',str_replace('/','',$path),'"><img src="',$fullpath, $images,'" /></a>',"\n";
 
                     }
                     else {
@@ -147,7 +148,7 @@ function fancy_parent($path, $child){
 
         if($files) {
 
-            echo '<a class="link" rel="show-me-all" href="',BASE_URL . $child,'" title="',str_replace('/','',$path),'"><img src="',$fullpath,$images,'" width="125" height="100" /></a>',"\n";
+            echo '<a class="link" rel="show-me-all" href="',BASE_URL . $child,'" title="',str_replace('/','',$path),'"><img src="',$fullpath,$images,'" /></a>',"\n";
 
             }
         else {
