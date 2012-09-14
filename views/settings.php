@@ -23,7 +23,7 @@ if (!defined('IN_CMS')) { exit(); }
             <tr>
                 <td class="label"><label for="gallery_path"><?php echo __('Gallery Path'); ?>:</label></td>
                 <td class="field"><input type="text" id="gallery_path" name="gallery_path" class="textbox" value="" /></td>
-                <td class="help"><?php echo __('Specify name of the folder under "public/images/" with a trailing slash. Example: mygallery/'); ?></td>
+                <td class="help"><?php echo __('Specify name of the folder under "public/images/". Example: my-gallery'); ?></td>
             </tr>
             <tr>
                 <td class="label"><label for="thumb_width"><?php echo __('Thumbnail Width'); ?>:</label></td>

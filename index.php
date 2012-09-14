@@ -8,10 +8,10 @@
  *
  * @author Sanja Andjelkovic <sanja@medio.com.hr>
  * @author Dejan Andjelkovic <dejan@medio.com.hr>
- * @version 0.8.6
+ * @version 0.9.0
  * @for Wolf version 0.7.0 and above
  * @license http://www.gnu.org/licenses/gpl.html GPL License
- * @copyright medio.com.hr & project79.net, 2009-2011
+ * @copyright medio.com.hr & project79.net, 2009-2012
  */
 
  //security measure
@@ -21,7 +21,7 @@ Plugin::setInfos(array(
     'id'          => 'fancy_image_gallery',
     'title'       => 'Fancy Image Gallery',
     'description' => __('Provides easy to use image gallery with fancybox effect.'),
-    'version'     => '0.8.6',
+    'version'     => '0.9.0',
     'license'     => 'GPL',
     'author'      => 'Sanja Andjelkovic',
     'website'     => 'http://project79.net/',
@@ -43,7 +43,7 @@ function fancy_resources(){
 }
 
 
-// funkcija koja izbacuje samo jednu sliku iz direktorija i pravi link na odabranu galeriju
+// funkcija koja izbacuje samo jednu sliku iz direktorija i pravi link na odabranu galeriju - 0.9.0
 function fancy_list(){
 
     $main_dir = CMS_ROOT . '/public/images/';
@@ -67,12 +67,9 @@ function fancy_list(){
 
 
         if(count($folders)){
-            //natsort($folders); //sortiranje; dodano u 0.8.1
             while ($counter<=$number) {
                 foreach($folders as $folder) {
                     $counter++;	
-
-                    //$fullpath = str_replace ('?', '',BASE_URL) . 'public/images/' . $folder . '/';
 
                     $image_dir = CMS_ROOT . '/public/images/' . $folder . '/';
 
@@ -95,11 +92,13 @@ function fancy_list(){
                             closedir($handle);						
                         }
 
-                    // propusti kroz petlju i ispisi linkove, te ih vezi za galeriju
-                    // za title ispisi samo krajnji direktorij u kojem se nalaze slike		
-
                     $images = $files;
-                    $galleryname = 'gallery'; // Slug of your main gallery page e.g. my-gallery
+                    /* 
+                     * $gallername serves as your main gallery page
+                     * In order it to work, you have to replace current 'gallery' with the
+                     * slug of your main gallery page e.g. 'my-gallery'
+                     */
+                    $galleryname = 'gallery';
                     $path = str_replace(dirname($folder), '', $folder);
                     $fullpath = str_replace ('?', '',BASE_URL) . 'public/images/' . $path . '/';
 
