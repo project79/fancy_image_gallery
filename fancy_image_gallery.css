@@ -1,0 +1,11 @@
+/* 
+    Document   : fancy_image_gallery
+    Created on : 24.09.2012., 11:08:39
+    Author     : Dejan
+    Description:
+        Documentation styling.
+*/
+
+pre, code { background: #e5e5e5; }
+ol, ul { margin-left: 20px; }
+
