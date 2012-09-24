@@ -24,18 +24,19 @@ if (!defined('IN_CMS')) { exit(); }
 	This gallery is created for people who have a lot of images and wants to save a lot of time with making thumbnails 
 	and descriptions for each image. 
 </p>
+<h3>1 Folder = 1 Gallery</h3>
 <p>
 	Gallery uses <strong><em>titles of your images</em></strong> and displays them underneath of each image, so be careful when naming your
 	images or you will end up with img1.jpg, img2.jpg etc.
 </p>
 <p>
 	<strong>NOTE:</strong> All folders with images (galleries) <strong>MUST</strong> be created under <strong><em>public/images/</em></strong> folder
-	in order to work, or you want be able to call the gallery from the "body" area.
+	in order to work, or you want be able to call the gallery from the "body" or "page-part" area.
 </p>
 
 <h3>1. Setting the Layout</h3>
 <p>
-	Download latest <a href="http://jquery.com" target="_blank">Jquery</a> library (this plugin is tested and works with version 1.4.x),
+	Download latest <a href="http://jquery.com" target="_blank">Jquery</a> library (this plugin is tested and works with version 1.7.x),
 	unzip it, put somewhere in public directory and link it between &lt;head&gt;&lt;/head&gt; tags.
 </p>
 	In your layout, put this code in &lt;head&gt;&lt;/head&gt; tag:<br />
@@ -46,25 +47,25 @@ if (!defined('IN_CMS')) { exit(); }
         $(".photo").fancybox({ 
             'speedIn': 500, 
             'speedOut': 500 
-			
-            /* Extra options are available
-            You can play around and see what fits your needs best.
-            If you don't need this extra options, please delete everything in between comment marks.
-            'overlayShow': true //choose between true or false
-            'overlayOpacity': 0.3, //choose opacity between 0.1 - 1, default is 0.3
-            'overlayColor': '#666', //choose any color for overlay, default is #666
-            'titleShow': true, //choose between: true or false, default is set to true
-            'titlePosition': 'outside', //choose between: 'outside','inside' or 'over', default is 'outside'
-            'transitionIn': 'fade', //chose between: 'fade', 'elastic' or 'none', default is 'fade'
-            'transitionOut': 'fade' //chose between: 'fade', 'elastic' or 'none', default is 'fade'
-            */
         });
     });
 &lt;/script&gt;
 </pre>
 <p>
+        Extra options are available. You can play around and see what fits your needs best.:
+</p>
+<pre>
+    'overlayShow': true //choose between true or false
+    'overlayOpacity': 0.3, //choose opacity between 0.1 - 1, default is 0.3
+    'overlayColor': '#666', //choose any color for overlay, default is #666
+    'titleShow': true, //choose between: true or false, default is set to true
+    'titlePosition': 'outside', //choose between: 'outside','inside' or 'over', default is 'outside'
+    'transitionIn': 'fade', //chose between: 'fade', 'elastic' or 'none', default is 'fade'
+    'transitionOut': 'fade' //chose between: 'fade', 'elastic' or 'none', default is 'fade'
+</pre>
+<p>
 	We have added some extra options which you can enable in your Layout. Play with it and see which fits you best.<br />
-	<strong>Note:</strong> Some options needs to be between single quotation marks ('like this')!!!
+	<strong>Note:</strong> Some options need to be between single quotation marks ('like this')!!!
 </p>
 
 <h3>2. Creating thumbnails</h3>
@@ -74,16 +75,15 @@ if (!defined('IN_CMS')) { exit(); }
 	File Manager (by creating folder under "public/images/" and uploading files one by one).
 </p>
 <p>
-	After the upload, go to <strong>Settings</strong> page and type the name of your gallery (actually, it is the name of your folder with images) under
-	Gallery Path (<strong>do not forget trailing slash!</strong> example: name_of_the_folder/).
+	After the upload, click <strong>Fancy Image gallery</strong> tab and type the name of your gallery (actually, it is the name of your folder with images) under
+	Gallery Path.
 </p>
 <p>
-	When that's done, specify thumbnail width and height in pixels (just the number, DO NOT WRITE px in input field). If you did all by book, you
+	When that's done, specify thumbnail width and height in pixels (just the number, DO NOT WRITE px in the input field). If you did all by book, you
 	should get flash message "Thumbnails are successfully created", and now you can call your gallery.
 </p>
 <p>
 	<strong>NOTE: Gallery Path, Thumbnail Width and Thumbnail Height fields are mandatory!!!</strong><br />
-	If something is missing, you'll get bunch of errors. This will be fixed in next release.
 </p>
 
 <h3>3. Displaying the gallery</h3>
@@ -94,9 +94,9 @@ if (!defined('IN_CMS')) { exit(); }
 <ul>
 	<li>Create new page,</li>
 	<li>Set filter to "none". Paste this code into body part: </li>
-	<li><pre>&lt;?php fancy('name of the folder/'); ?&gt;</pre></li>
+	<li><code>&lt;?php fancy('name of the folder/'); ?&gt;</code></li>
 	<li>Change the "name of the folder/" to name of your folder with images</li>
-	<li>DO NOT FORGET THE TRAILING SLASH!!!</li>
+	<li><strong>DO NOT FORGET THE TRAILING SLASH!!!</strong></li>
 </ul>
 
 <h3>Example :</h3>
@@ -105,23 +105,25 @@ if (!defined('IN_CMS')) { exit(); }
 </p>
 <ul>
 	<li>Create a folder named "mygallery" and upload some photos.</li>
-	<li>Create and Publish page called "Gallery".</li> 
-	<li>Type this code in "Gallery" page body with filter set to "none":</li>
-	<li><pre>&lt;?php fancy('mygallery/); ?&gt;</pre></li>
-	<li>DO NOT FORGET THE TRAILING SLASH!!!</li>
+	<li>Create and Publish page called "My gallery".</li> 
+	<li>Type this code in "My gallery" page body with filter set to "none":</li>
+	<li><code>&lt;?php fancy('mygallery/); ?&gt;</code></li>
+	<li><strong>DO NOT FORGET THE TRAILING SLASH!!!</strong></li>
 	<li>Save and View your gallery</li>
 </ul>
 
-<h3>4. Displaying/Listing all the galleries on your page</h3>
+<h3>4. Display and link gallery on some other page</h3>
+
+<p>For this we use <code>fancy_parent</code> function.</p>
+
 <p>
-	The Fancy Image Gallery comes with possibility to display/list of all your galleries (or just some you pick) by 
-	making a thumb from first image from specified gallery/folder. The thumbnail image is a link to your gallery. Default
-	size for this thumb is 100/100px and it is hardcoded somewhere in the plugin.
+	The Fancy Image Gallery comes with possibility to display/list of a certain gallery (or few of them) by 
+	making a thumb from first image from specified gallery/folder. The thumbnail image is a link to your gallery.
 </p>
 <ul>
 	<li>Create new page,</li>
 	<li>Paste this code into body part with filter set to "none": </li>
-	<li><pre>&lt;?php fancy_parent('name of the folder/', 'slug from page/'); ?&gt;</pre></li>
+	<li><code>&lt;?php fancy_parent('name of the folder/', 'slug from page/'); ?&gt;</code></li>
 	<li>Change the "name of the folder/" to name of your folder with images</li>
 	<li>Change "slug from page/" to fit slug from your newly created page</li>
 	<li>DO NOT FORGET THE TRAILING SLASH!!!</li>
@@ -136,10 +138,34 @@ if (!defined('IN_CMS')) { exit(); }
 	<li>Create and Publish page called "Gallery".</li> 
 	<li>Then create child page under Gallery page, and call it "Gallery One".</li>
 	<li>Type this code in "Gallery One" body with filter set to "none":</li>
-	<li><pre>&lt;?php fancy_parent('mygallery/, gallery/gallery-one/'); ?&gt;</pre></li>
+	<li><code>&lt;?php fancy_parent('mygallery/, gallery/gallery-one/'); ?&gt;</code></li>
 	<li>DO NOT FORGET THE TRAILING SLASH!!!</li>
 	<li>Save and View your gallery</li>
 </ul>
+
+<h3>5. Display all existing galleries</h3>
+
+<p>For this we use <code>fancy_list</code> function.</p>
+
+<p>
+    Before you can even use this function, you <strong>need to set the name for your gallery</strong>. Default is "gallery" which means, if you have slug named "gallery" it will work out of the box, otherwise you should do:
+</p>
+
+<ol>
+    <li>Create Page which will act as main gallery and copy its slug</li>
+    <li>Open <code>index.php</code> file from the <code>/wolf/plugins/fancy_image_gallery</code></li>
+    <li>On line 101 change: <code>$galleryname = 'gallery';</code> into your copied/created slug</li>
+    <li>Save</li>
+    <li>Go to your main gallery page (container) and paste:</li>
+    <li><code>&lt;?php fancy_list(); ?&gt;</code></li>
+    <li>set filter to <strong>none</strong>, page to Published and Save</li>
+    <li>Done</li>
+</ol>
+
+<p>
+    <strong>A note:</strong> In order for this function to work properly, you can't have any hidden files within <code>/public/images/</code> folder or it will break your page.
+</p>
+
 <h3>Uninstalling the plugin</h3>
 <ul>
 	<li>Go to Administration->Plugins and <strong>uncheck</strong> the Fancy Image Gallery checkbox.</li>
