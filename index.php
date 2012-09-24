@@ -38,8 +38,8 @@ function fancy_resources(){
 	$csspath = str_replace ('?', '',BASE_URL).'wolf/plugins/fancy_image_gallery/resources/';
 		
 	// loadaj fancybox i pripadajuce css fajlove
-	echo '<script type="text/javascript" src="',$jspath,'jquery.fancybox-1.3.0.pack.js"></script>',"\n";
-	echo '<link href="',$csspath,'jquery.fancybox-1.3.0.css" rel="stylesheet" type="text/css">',"\n";
+	echo '<script type="text/javascript" src="',$jspath,'fancybox.js"></script>',"\n";
+	echo '<link href="',$csspath,'fancybox.css" rel="stylesheet" type="text/css">',"\n";
 }
 
 
