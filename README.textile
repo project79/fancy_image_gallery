@@ -3,9 +3,8 @@ h2. Fancy Image Gallery
 h3. What is it?
 
 Image Gallery for Wolf CMS with Jquery FancyBox plugin for effects.
-Current version is 0.9.0 (Wolf 0.7.0+)
-For Wolf 0.6.0 use version 0.8.3_w6
-For Wolf 0.5.5 use version 0.7.3
+Current version is 0.9.2 (Wolf 0.7.0+)
+
 Website: <a href="http://project79.net/projects/fancy-image-gallery">Project 79</a>
 
 h3. What can it do?
@@ -26,7 +25,7 @@ bc. <?php fancy_parent('myfolder/', 'gallery/first-gallery/'); ?>
 <?php fancy_parent('myfolder2/', 'gallery/second-gallery/'); ?>
 	etc...
 
-Or use <code>fancy_list</code> function.
+Or use <code>fancy_list</code> function. For slider funcionality use <code>fancy_slider</code> with additional arguments.
 
 This is tested with more than 10 galleries, and works with no problem, but I think you'll should not have problems with even more.
 
@@ -55,9 +54,19 @@ This plugin is licensed under the GPLv3 License and it is free for personal and 
 
 Developer: Sanja Andjelkovic <sanja@medio.com.hr>
 Coder: Dejan Andjelkovic <dejan@medio.com.hr>
-Copyright 2009-2012, http://medio.com.hr
+Copyright 2009-2013, http://medio.com.hr
 
 h3. Changelog
+
+h4. Version 0.9.2 (May 2013)
+
+* New function <code>fancy_slider</code>
+
+h4. Version 0.9.1 (April 2013)
+
+* English language file added
+* css file corrected
+
 
 h4. Version 0.9.0 (September 2012)
 
