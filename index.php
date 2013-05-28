@@ -21,7 +21,7 @@ Plugin::setInfos(array(
     'id'          => 'fancy_image_gallery',
     'title'       => 'Fancy Image Gallery',
     'description' => __('Provides easy to use image gallery with fancybox effect.'),
-    'version'     => '0.9.1',
+    'version'     => '0.9.2',
     'license'     => 'GPL',
     'author'      => 'Sanja Andjelkovic',
     'website'     => 'http://project79.net/',
@@ -32,6 +32,9 @@ Plugin::setInfos(array(
 Plugin::addController('fancy_image_gallery', 'Fancy Image Gallery', 'admin_view');
 
 // funkcija poziva css i fancybox iz foldera /js i /resources
+/*
+*   Call to action (bteween <head></head> under jQuery library): <?php fancy_resources(); ?>
+*/
 function fancy_resources(){
 	//putanje
 	$jspath = str_replace ('?', '',BASE_URL).'wolf/plugins/fancy_image_gallery/js/';
@@ -44,6 +47,9 @@ function fancy_resources(){
 
 
 // funkcija koja izbacuje samo jednu sliku iz direktorija i pravi link na odabranu galeriju - 0.9.0
+/*
+*   Call to action: <?php fancy_list(); ?>
+*/
 function fancy_list(){
 
     $main_dir = CMS_ROOT . '/public/images/';
@@ -116,6 +122,9 @@ function fancy_list(){
 }
 
 // funkcija koja izbacuje samo jednu sliku iz direktorija i pravi link na odabranu galeriju
+/*
+*   Call to action: <?php fancy_parent('my-first.gallery/', '/gallery/my-first-gallery'); ?>
+*/
 function fancy_parent($path, $child){
 
         $fullpath = str_replace ('?', '',BASE_URL) . 'public/images/' . $path;
@@ -154,6 +163,11 @@ function fancy_parent($path, $child){
             echo __('There are no images in this gallery.');
         }
 }
+
+/*
+*   Call to action: <?php fancy('my-first.gallery/'); ?>
+*/
+
 
 function fancy($path){
          
@@ -202,4 +216,51 @@ function fancy($path){
         {
             echo __('There are no images in this gallery.');
         }
-} ?>
+}
+
+/*
+*   Call to action: <?php fancy_slider($path, $page, 400, 200, $title); ?>
+*/
+
+function fancy_slider($path, $child, $width=false, $height=false, $title=false){
+
+        $fullpath = str_replace ('?', '',BASE_URL) . 'public/images/' . $path;
+
+        $image_dir = CMS_ROOT . '/public/images/' . $path;
+                
+        $handle = opendir($image_dir);
+
+                
+        if ($handle) {
+            while (false !== ($file = readdir($handle)))
+            {
+                if ($file != '.' && $file != '..')
+                {
+                           
+                        $files[] = $file;
+                                      
+                }
+            }
+            closedir($handle);
+        }
+
+        // propusti kroz petlju i ispisi linkove, te ih vezi za galeriju
+        // za title ispisi samo krajnji direktorij u kojem se nalaze slike
+        
+        sort($files);
+               
+        $images = $files[1];
+        $path = str_replace(dirname($path), '', $path);
+
+        if($files)
+        {
+
+                    echo '<a href="',BASE_URL . $child,'" title="',str_replace('/','',$path),'"><img src="',$fullpath,$images,'" width="',$width,'" height="',$height,'" title="',$title,'" /></a>',"\n";
+
+                    
+                }
+        else
+        {
+            echo __('There are no images in this gallery.');
+        }
+}
