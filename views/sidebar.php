@@ -29,3 +29,7 @@ if (!defined('IN_CMS')) { exit(); }
     <h2>List of all galleries</h2>
     <p><code>&lt;?php fancy_list(); ?&gt;</code></p>
 </div>
+<div class="box">
+    <h2>List galleries with slider</h2>
+    <p><code>&lt;?php fancy_slider($path, $page, 400, 250, $title); ?&gt;</code></p>
+</div>
