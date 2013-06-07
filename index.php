@@ -8,7 +8,7 @@
  *
  * @author Sanja Andjelkovic <sanja@medio.com.hr>
  * @author Dejan Andjelkovic <dejan@medio.com.hr>
- * @version 0.9.0
+ * @version 0.9.3
  * @for Wolf version 0.7.0 and above
  * @license http://www.gnu.org/licenses/gpl.html GPL License
  * @copyright medio.com.hr & project79.net, 2009-2012
@@ -21,10 +21,10 @@ Plugin::setInfos(array(
     'id'          => 'fancy_image_gallery',
     'title'       => 'Fancy Image Gallery',
     'description' => __('Provides easy to use image gallery with fancybox effect.'),
-    'version'     => '0.9.2',
+    'version'     => '0.9.3',
     'license'     => 'GPL',
     'author'      => 'Sanja Andjelkovic',
-    'website'     => 'http://project79.net/',
+    'website'     => 'http://project79.net/projects/fancy-image-gallery',
     'update_url'  => 'http://www.project79.net/plugin-versions.xml',
     'require_wolf_version' => '0.7.3'
 ));
