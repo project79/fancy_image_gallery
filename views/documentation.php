@@ -214,6 +214,7 @@ if (!defined('IN_CMS')) { exit(); }
 <ul>
     <li>English (common sense!),</li> 
     <li>Croatian (that's ours),</li>
+    <li>German (thanks to Frank)</li>
     <li>French (thanks to oweb),</li>
     <li>Spanish (thanks to rafaguilarsol),</li>
     <li>Dutch (thanks to Fortron),</li>
@@ -239,7 +240,7 @@ if (!defined('IN_CMS')) { exit(); }
 <h3>Authors</h3>
 <p>
         Developer and leading math brain: Sanja Andjelkovic (sanja@medio.com.hr)<br />
-	Coder and wannabe developer: Dejan Andjelkovic (dejan@medio.com.hr)<br />
+		Coder and wannabe developer: Dejan Andjelkovic (dejan@medio.com.hr)<br />
         Many thanks to our man from the shadow for his help: Martijn van der Kleijn (martijn.niji@gmail.com)<br />
         Project website: <a href="http://project79.net/projects/fancy-image-gallery" target="_blank">Fancy Image Gallery</a><br />
         Company website: <a href="http://medio.com.hr" target="_blank">medio com hr</a>
