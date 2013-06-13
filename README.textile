@@ -58,6 +58,10 @@ Copyright 2009-2013, http://medio.com.hr
 
 h3. Changelog
 
+h4. Version 0.9.4 (June 2013)
+
+* en-message corrected
+
 h4. Version 0.9.3 (June 2013)
 
 * English, German and Croatian translations corrected and updated

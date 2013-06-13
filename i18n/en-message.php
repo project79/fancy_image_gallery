@@ -15,7 +15,7 @@
 	'Settings' => 'Settings',
 	'Create Thumbnails - All fields are mandatory' => 'Create Thumbnails - All fields are mandatory',
 	'Gallery Path' => 'Gallery Path',
-	'Specify name of the folder under "public/images/" with a trailing slash. Example: mygallery/' => 'Specify name of the folder under "public/images/" with a trailing slash. Example: mygallery/',
+	'Specify name of the folder under "public/images/". Example: my-gallery' => 'Specify name of the folder under "public/images/" with a trailing slash. Example: mygallery',
 	'Thumbnail Width' => 'Thumbnail Width',
 	'Specify thumbnail width in pixels' => 'Specify thumbnail width in pixels',
 	'Thumbnail Height' => 'Thumbnail Height',
