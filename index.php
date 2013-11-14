@@ -110,7 +110,7 @@ function fancy_list(){
 
                     if($files) {
 
-                       echo '<a class="link" rel="show-me-all" href="',BASE_URL . $galleryname . '/' . $path . '/','" title="',str_replace('/','',$path),'"><img src="',$fullpath, $images,'" /></a>',"\n";
+                       echo '<a class="link" rel="show-me-all" href="',BASE_URL . $galleryname . '/' . $path . '/','" title="',str_replace('/','',$path),'"><img src="',$fullpath, $images,'" alt="',str_replace('/','',$path),'" /></a>',"\n";
 
                     }
                     else {
@@ -156,7 +156,7 @@ function fancy_parent($path, $child){
 
         if($files) {
 
-            echo '<a class="link" rel="show-me-all" href="',BASE_URL . $child,'" title="',str_replace('/','',$path),'"><img src="',$fullpath,$images,'" /></a>',"\n";
+            echo '<a class="link" rel="show-me-all" href="',BASE_URL . $child,'" title="',str_replace('/','',$path),'"><img src="',$fullpath,$images,'" alt="',str_replace('/','',$path),'" /></a>',"\n";
 
             }
         else {
@@ -207,7 +207,7 @@ function fancy($path){
                 {
                     $counter++;
                     $str=str_replace('_',' ',$file); // ciscenje naslova; 0.8.6
-                    echo '<a class="photo" rel="my-gallery" href="',$fullpath,str_replace('-thumb','',$file),'" title="',preg_replace('/\-thumb..*$/i', '',$str),'"><img src="',$fullpath,$file,'"/></a>';
+                    echo '<a class="photo" rel="my-gallery" href="',$fullpath,str_replace('-thumb','',$file),'" title="',preg_replace('/\-thumb..*$/i', '',$str),'"><img src="',$fullpath,$file,'" alt="',preg_replace('/\-thumb..*$/i', '',$str),'" /></a>';
                 }
 
             }
@@ -255,7 +255,7 @@ function fancy_slider($path, $child, $width=false, $height=false, $title=false){
         if($files)
         {
 
-                    echo '<a href="',BASE_URL . $child,'" title="',str_replace('/','',$path),'"><img src="',$fullpath,$images,'" width="',$width,'" height="',$height,'" title="',$title,'" /></a>',"\n";
+                    echo '<a href="',BASE_URL . $child,'" title="',str_replace('/','',$path),'"><img src="',$fullpath,$images,'" width="',$width,'" height="',$height,'" title="',$title,'" alt="',$title,'" /></a>',"\n";
 
                     
                 }
