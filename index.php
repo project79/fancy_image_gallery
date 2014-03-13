@@ -8,7 +8,7 @@
  *
  * @author Sanja Andjelkovic <sanja@medio.com.hr>
  * @author Dejan Andjelkovic <dejan@medio.com.hr>
- * @version 0.9.3
+ * @version 1.0.0
  * @for Wolf version 0.7.0 and above
  * @license http://www.gnu.org/licenses/gpl.html GPL License
  * @copyright medio.com.hr & project79.net, 2009-2012
@@ -21,7 +21,7 @@ Plugin::setInfos(array(
     'id'          => 'fancy_image_gallery',
     'title'       => 'Fancy Image Gallery',
     'description' => __('Provides easy to use image gallery with fancybox effect.'),
-    'version'     => '0.9.4',
+    'version'     => '1.0.0',
     'license'     => 'GPL',
     'author'      => 'Sanja Andjelkovic',
     'website'     => 'http://project79.net/projects/fancy-image-gallery',
@@ -30,21 +30,6 @@ Plugin::setInfos(array(
 ));
 
 Plugin::addController('fancy_image_gallery', 'Fancy Image Gallery', 'admin_view');
-
-// funkcija poziva css i fancybox iz foldera /js i /resources
-/*
-*   Call to action (bteween <head></head> under jQuery library): <?php fancy_resources(); ?>
-*/
-function fancy_resources(){
-	//putanje
-	$jspath = str_replace ('?', '',BASE_URL).'wolf/plugins/fancy_image_gallery/js/';
-	$csspath = str_replace ('?', '',BASE_URL).'wolf/plugins/fancy_image_gallery/resources/';
-		
-	// loadaj fancybox i pripadajuce css fajlove
-	echo '<script type="text/javascript" src="',$jspath,'fancybox.js"></script>',"\n";
-	echo '<link href="',$csspath,'fancybox.css" rel="stylesheet" type="text/css">',"\n";
-}
-
 
 // funkcija koja izbacuje samo jednu sliku iz direktorija i pravi link na odabranu galeriju - 0.9.0
 /*
@@ -110,7 +95,7 @@ function fancy_list(){
 
                     if($files) {
 
-                       echo '<a class="link" rel="show-me-all" href="',BASE_URL . $galleryname . '/' . $path . '/','" title="',str_replace('/','',$path),'"><img src="',$fullpath, $images,'" alt="',str_replace('/','',$path),'" /></a>',"\n";
+                       echo '<a class="link" href="',BASE_URL . $galleryname . '/' . $path . '/','" title="',str_replace('/','',$path),'"><img src="',$fullpath, $images,'" alt="',str_replace('/','',$path),'" /></a>',"\n";
 
                     }
                     else {
@@ -156,7 +141,7 @@ function fancy_parent($path, $child){
 
         if($files) {
 
-            echo '<a class="link" rel="show-me-all" href="',BASE_URL . $child,'" title="',str_replace('/','',$path),'"><img src="',$fullpath,$images,'" alt="',str_replace('/','',$path),'" /></a>',"\n";
+            echo '<a class="link" href="',BASE_URL . $child,'" title="',str_replace('/','',$path),'"><img src="',$fullpath,$images,'" alt="',str_replace('/','',$path),'" /></a>',"\n";
 
             }
         else {
@@ -207,7 +192,7 @@ function fancy($path){
                 {
                     $counter++;
                     $str=str_replace('_',' ',$file); // ciscenje naslova; 0.8.6
-                    echo '<a class="photo" rel="my-gallery" href="',$fullpath,str_replace('-thumb','',$file),'" title="',preg_replace('/\-thumb..*$/i', '',$str),'"><img src="',$fullpath,$file,'" alt="',preg_replace('/\-thumb..*$/i', '',$str),'" /></a>';
+                    echo '<a class="photo" data-lightbox="fancygallery" href="',$fullpath,str_replace('-thumb','',$file),'" title="',preg_replace('/\-thumb..*$/i', '',$str),'"><img src="',$fullpath,$file,'" alt="',preg_replace('/\-thumb..*$/i', '',$str),'" /></a>';
                 }
 
             }
